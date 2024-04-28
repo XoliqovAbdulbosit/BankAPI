@@ -67,10 +67,10 @@ def telegram_webhook(request):
         if msg == '/start':
             send_message(chat_id, 'Kartalaringiz ulangan telefon raqamni kiriting:')
         elif check_phone_number(msg):
-            Contact.objects.get_or_create(phone_number=msg, defaults={'chat_id': chat_id})
+            Contact.objects.update_or_create(chat_id=chat_id, defaults={'phone_number': msg})
             send_message(chat_id, 'Raqam qabul qilindi')
         else:
-            send_message(chat_id, "Raqamni to'g'ri kiriting (+998901234567)")
+            send_message(chat_id, "Raqamni to'g'ri kiriting:")
     return JsonResponse({'status': 'Ok'})
 
 
@@ -80,7 +80,7 @@ def send_code(request):
     if check_phone_number(phone_number):
         try:
             code = randint(100000, 999999)
-            Code.objects.get_or_create(phone_number=phone_number, defaults={'code': code})
+            Code.objects.update_or_create(phone_number=phone_number, defaults={'code': code})
             chat_id = Contact.objects.get(phone_number=phone_number).chat_id
             send_message(chat_id, f'Your verification code: {code}')
             return JsonResponse({'status': 'Verification code sent'})
@@ -120,5 +120,5 @@ def transaction(request):
             return JsonResponse({'status': 'Success'})
         else:
             return JsonResponse({'status': 'Sender Does Not Have Enough Funds'})
-    except ObjectDoesNotExist:
+    except:
         return JsonResponse({'status': 'Sender or Receiver Card not found or Invalid amount'})
