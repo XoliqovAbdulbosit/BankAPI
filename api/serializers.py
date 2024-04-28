@@ -1,17 +1,18 @@
-from rest_framework import serializers, permissions
+from rest_framework import serializers
 from .models import Card, Transaction
 
 
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ['id', 'number', 'phone_number', 'name', 'balance', 'photo']
+        fields = ['id', 'number', 'name', 'photo']
 
 
 class TransactionSerializer(serializers.ModelSerializer):
     sender = CardSerializer()
     receiver = CardSerializer()
+    datetime = serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S")
 
     class Meta:
         model = Transaction
-        fields = ['id', 'sender', 'receiver', 'amount']
+        fields = ['id', 'sender', 'receiver', 'amount', 'datetime']

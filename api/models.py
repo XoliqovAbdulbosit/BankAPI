@@ -10,7 +10,7 @@ class Card(models.Model):
     photo = models.CharField(max_length=256)
 
     def __str__(self):
-        return str(self.number)
+        return self.number
 
 
 class Transaction(models.Model):
