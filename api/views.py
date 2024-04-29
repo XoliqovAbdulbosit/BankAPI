@@ -81,8 +81,9 @@ def send_code(request):
         try:
             code = randint(100000, 999999)
             Code.objects.update_or_create(phone_number=phone_number, defaults={'code': code})
-            chat_id = Contact.objects.get(phone_number=phone_number).chat_id
-            send_message(chat_id, f'Your verification code: {code}')
+            contacts = Contact.objects.filter(phone_number=phone_number)
+            for contact in contacts:
+                send_message(contact.chat_id, f'Your verification code: {code}')
             return JsonResponse({'status': 'Verification code sent'})
         except ObjectDoesNotExist:
             return JsonResponse({'status': 'Verification Phone Number not found'})
