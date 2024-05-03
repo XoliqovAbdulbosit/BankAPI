@@ -36,32 +36,62 @@
             <h5 class="text-primary">/transactions?card={card_number}</h5>
             <h5>Namuna: /transactions?card=86001234</h5>
         </div>
-        <div class="my-4">
+        <div class="my-5">
             <h6 class="bg-danger d-inline rounded-3 px-3 py-1 text-white">POST</h6>
             <h4 class="d-inline">Telefon raqamini tasdiqlash uchun Telegram orqali kod jo'natish</h4>
+            <h5>Telegramdan kod kelishi uchun: @icts_bank_bot</h5>
             <h5 class="text-primary">/send_code</h5>
-            <code>
+            <code class="text-danger fs-5">
                 data class SendCode (phone_number: String)
             </code>
             <h5>POST ni Body qismiga Data Class yaratilib phone_number berilishi kerak</h5>
+            <h5>Natija:</h5>
+            <code class="text-danger fs-5">
+                data class Response (status: String)
+            </code>
+            <h5>status: "Verification code sent" yoki "Incorrect Phone Number"</h5>
         </div>
-        <div class="my-4">
+        <div class="my-5">
             <h6 class="bg-danger d-inline rounded-3 px-3 py-1 text-white">POST</h6>
             <h4 class="d-inline">Kiritilgan kodni tekshirish</h4>
             <h5 class="text-primary">/check_code</h5>
-            <code>
+            <code class="text-danger fs-5">
                 data class CheckCode (phone_number: String, code: String)
             </code>
             <h5>POST ni Body qismiga Data Class yaratilib phone_number va code berilishi kerak</h5>
+            <h5>Natija:</h5>
+            <code class="text-danger fs-5">
+                data class Response (status: String)
+            </code>
+            <h5>status: "Success", "Fail" yoki "Code not found"</h5>
         </div>
-        <div class="my-4">
+        <div class="my-5">
+            <h6 class="bg-danger d-inline rounded-3 px-3 py-1 text-white">POST</h6>
+            <h4 class="d-inline">Kodni tekshirib karta qoshish</h4>
+            <h5 class="text-primary">/add_card</h5>
+            <code class="text-danger fs-5">
+                data class CheckCode (phone_number: String, code: String, card_number: String)
+            </code>
+            <h5>POST ni Body qismiga Data Class yaratilib phone_number, code va card_number berilishi kerak</h5>
+            <h5>Natija:</h5>
+            <code class="text-danger fs-5">
+                data class Response (status: String, card: Card)
+            </code>
+            <h5>status: "Success", "Fail" yoki "Code or Card not found"</h5>
+        </div>
+        <div class="my-5">
             <h6 class="bg-danger d-inline rounded-3 px-3 py-1 text-white">POST</h6>
             <h4 class="d-inline">Tranzaksiya amalga oshirish</h4>
             <h5 class="text-primary">/transaction</h5>
-            <code>
+            <code class="text-danger fs-5">
                 data class Transaction (sender: String, receiver: String, amount: Int)
             </code>
             <h5>POST ni Body qismiga Data Class yaratilib sender, receiver va amount berilishi kerak</h5>
+            <h5>Natija:</h5>
+            <code class="text-danger fs-5">
+                data class Response (status: String)
+            </code>
+            <h5>status: "Success", "Sender Does Not Have Enough Funds" yoki "Sender or Receiver Card not found or Invalid amount"</h5>
         </div>
         <h6>Savollar va takliflar bo'yicha: @Xolikov_Abdulbosit</h6>
     </div>

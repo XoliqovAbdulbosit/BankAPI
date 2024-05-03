@@ -78,15 +78,12 @@ def telegram_webhook(request):
 def send_code(request):
     phone_number = json.loads(request.body.decode('utf-8')).get('phone_number')
     if check_phone_number(phone_number):
-        try:
-            code = randint(100000, 999999)
-            Code.objects.update_or_create(phone_number=phone_number, defaults={'code': code})
-            contacts = Contact.objects.filter(phone_number=phone_number)
-            for contact in contacts:
-                send_message(contact.chat_id, f'Your verification code: {code}')
-            return JsonResponse({'status': 'Verification code sent'})
-        except ObjectDoesNotExist:
-            return JsonResponse({'status': 'Verification Phone Number not found'})
+        code = randint(100000, 999999)
+        Code.objects.update_or_create(phone_number=phone_number, defaults={'code': code})
+        contacts = Contact.objects.filter(phone_number=phone_number)
+        for contact in contacts:
+            send_message(contact.chat_id, f'Your verification code: {code}')
+        return JsonResponse({'status': 'Verification code sent'})
     else:
         return JsonResponse({'status': 'Incorrect Phone Number'})
 
@@ -103,6 +100,21 @@ def check_code(request):
             return JsonResponse({'status': 'Fail'})
     except ObjectDoesNotExist:
         return JsonResponse({'status': 'Code not found'})
+
+
+@csrf_exempt
+def add_card(request):
+    data = json.loads(request.body.decode('utf-8'))
+    try:
+        code = Code.objects.get(phone_number=data.get('phone_number'))
+        card = Card.objects.get(number=data.get('card_number'))
+        if data.get('code') == code.code and card.phone_number == data.get('phone_number'):
+            code.delete()
+            return JsonResponse({'status': 'Success', 'card': CardSerializer(card).data})
+        else:
+            return JsonResponse({'status': 'Fail'})
+    except ObjectDoesNotExist:
+        return JsonResponse({'status': 'Code or Card not found'})
 
 
 @csrf_exempt
