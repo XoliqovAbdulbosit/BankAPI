@@ -11,4 +11,5 @@ urlpatterns = [
     path('send_code/', send_code),
     path('check_code/', check_code),
     path('add_card/', add_card),
+    path('card/<card_number>', get_card),
 ]

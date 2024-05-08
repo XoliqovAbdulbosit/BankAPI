@@ -47,7 +47,7 @@ def send_message(chat_id, msg):
 
 
 def check_phone_number(number):
-    if number[0] == '+' and number[1:].isnumeric() and len(number[1:]) == 12:
+    if len(number) == 13 and number[0] == '+' and number[1:].isnumeric():
         return True
     else:
         return False
@@ -72,6 +72,14 @@ def telegram_webhook(request):
         else:
             send_message(chat_id, "Raqamni to'g'ri kiriting:")
     return JsonResponse({'status': 'Ok'})
+
+
+def get_card(request, card_number):
+    try:
+        card = Card.objects.get(number=card_number)
+        return JsonResponse({'status': 'Success', 'card': CardSerializer(card).data})
+    except ObjectDoesNotExist:
+        return JsonResponse({'status': 'Card not found'})
 
 
 @csrf_exempt
