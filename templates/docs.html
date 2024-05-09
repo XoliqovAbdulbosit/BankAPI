@@ -46,7 +46,7 @@
             <h6 class="bg-danger d-inline rounded-3 px-3 py-1 text-white">POST</h6>
             <h4 class="d-inline">Telefon raqamini tasdiqlash uchun Telegram orqali kod jonatish</h4>
             <h5>Telegramdan kod kelishi uchun: @icts_bank_bot</h5>
-            <h5 class="text-primary">/send_code</h5>
+            <h5 class="text-primary">/send_code/</h5>
             <code class="text-danger fs-5">
                 data class SendCode (phone_number: String)
             </code>
@@ -60,7 +60,7 @@
         <div class="my-5">
             <h6 class="bg-danger d-inline rounded-3 px-3 py-1 text-white">POST</h6>
             <h4 class="d-inline">Kiritilgan kodni tekshirish</h4>
-            <h5 class="text-primary">/check_code</h5>
+            <h5 class="text-primary">/check_code/</h5>
             <code class="text-danger fs-5">
                 data class CheckCode (phone_number: String, code: String)
             </code>
@@ -74,7 +74,7 @@
         <div class="my-5">
             <h6 class="bg-danger d-inline rounded-3 px-3 py-1 text-white">POST</h6>
             <h4 class="d-inline">Kodni tekshirib karta qoshish</h4>
-            <h5 class="text-primary">/add_card</h5>
+            <h5 class="text-primary">/add_card/</h5>
             <code class="text-danger fs-5">
                 data class CheckCode (phone_number: String, code: String, card_number: String)
             </code>
@@ -88,7 +88,7 @@
         <div class="my-5">
             <h6 class="bg-danger d-inline rounded-3 px-3 py-1 text-white">POST</h6>
             <h4 class="d-inline">Tranzaksiya amalga oshirish</h4>
-            <h5 class="text-primary">/transaction</h5>
+            <h5 class="text-primary">/transaction/</h5>
             <code class="text-danger fs-5">
                 data class Transaction (sender: String, receiver: String, amount: Int)
             </code>
