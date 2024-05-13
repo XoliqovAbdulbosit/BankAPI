@@ -5,7 +5,7 @@ from .models import Card, Transaction
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ['id', 'number', 'name', 'photo', 'balance', 'phone_number']
+        fields = ['id', 'number', 'name', 'photo', 'balance', 'phone_number', 'date']
 
 
 class TransactionSerializer(serializers.ModelSerializer):

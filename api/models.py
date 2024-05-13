@@ -8,6 +8,7 @@ class Card(models.Model):
     name = models.CharField(max_length=32)
     balance = models.IntegerField(default=0)
     photo = models.CharField(max_length=256)
+    date = models.CharField(max_length=5, default="05/27")
 
     def __str__(self):
         return self.number
