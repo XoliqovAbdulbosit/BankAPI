@@ -1,0 +1,7 @@
+db.sqlite3
+setup.sh
+venv
+migrations
+management
+media
+populate_data.py
